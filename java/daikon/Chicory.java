@@ -24,6 +24,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.nullness.qual.RequiresNonNull;
 import org.checkerframework.dataflow.qual.Pure;
+import units.qual.ms;
 
 /**
  * This is the main class for Chicory which transforms the class files of a program to instrument it
@@ -144,7 +145,7 @@ public class Chicory {
   public static @MonotonicNonNull StreamRedirectThread err_thread;
 
   /** starting time (msecs) */
-  public static long start = System.currentTimeMillis();
+  public static @ms long start = System.currentTimeMillis();
 
   /** daikon process for {@code --daikon} command-line option */
   // non-null if either daikon==true or daikon_online==true
@@ -579,7 +580,7 @@ public class Chicory {
     return ("[" + (System.currentTimeMillis() - start) + " msec]");
   }
 
-  public static long elapsed_msecs() {
+  public static @ms long elapsed_msecs() {
     return (System.currentTimeMillis() - start);
   }
 

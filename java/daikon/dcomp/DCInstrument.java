@@ -429,7 +429,7 @@ public class DCInstrument extends InstructionListUtils {
         remove_local_variable_type_table(mg);
         // Remove all RuntimeAnnotations (if any), as they do not apply
         // to the instrumented version of the method.
-        mg.removeAnnotationEntries();
+        // mg.removeAnnotationEntries(); // to compile code
 
         if (!BcelUtil.isMain(mg) && !BcelUtil.isClinit(mg)) {
           // doubling
@@ -640,7 +640,7 @@ public class DCInstrument extends InstructionListUtils {
         remove_local_variable_type_table(mg);
         // Remove all RuntimeAnnotations (if any), as they do not apply
         // to the instrumented version of the method.
-        mg.removeAnnotationEntries();
+        // mg.removeAnnotationEntries(); // to compile
 
         if (!BcelUtil.isMain(mg) && !BcelUtil.isClinit(mg)) {
           // doubling
@@ -836,7 +836,7 @@ public class DCInstrument extends InstructionListUtils {
 
         // Remove all RuntimeAnnotations (if any), as they do not apply
         // to the instrumented version of the method.
-        mg.removeAnnotationEntries();
+        // mg.removeAnnotationEntries();  // to compile
 
         if (initial_jdk_instrument && has_code) {
           // mark this method as needing to be reinstrumented at runtime
@@ -991,7 +991,7 @@ public class DCInstrument extends InstructionListUtils {
 
         // Remove all RuntimeAnnotations (if any), as they do not apply
         // to the instrumented version of the method.
-        mg.removeAnnotationEntries();
+        // mg.removeAnnotationEntries();  // to compile
 
         if (initial_jdk_instrument && has_code) {
           // mark this method as needing to be reinstrumented at runtime
@@ -2291,14 +2291,14 @@ public class DCInstrument extends InstructionListUtils {
       il.append(new ACONST_NULL());
       Type[] new_arg_types = BcelUtil.postpendToArray(arg_types, dcomp_marker);
       Constant methodref = pool.getConstant(invoke.getIndex());
-      il.append(
-          ifact.createInvoke(
-              classname,
-              method_name,
-              ret_type,
-              new_arg_types,
-              invoke.getOpcode(),
-              methodref instanceof ConstantInterfaceMethodref));
+      // il.append(
+      //     ifact.createInvoke(
+      //         classname,
+      //         method_name,
+      //         ret_type,
+      //         new_arg_types,
+      //         invoke.getOpcode(),
+      //         methodref instanceof ConstantInterfaceMethodref)); // to compile
 
     } else { // not instrumented, discard the tags before making the call
 
@@ -2633,14 +2633,14 @@ public class DCInstrument extends InstructionListUtils {
       il.append(new ACONST_NULL());
       Type[] new_arg_types = BcelUtil.postpendToArray(arg_types, dcomp_marker);
       Constant methodref = pool.getConstant(invoke.getIndex());
-      il.append(
-          ifact.createInvoke(
-              classname,
-              method_name,
-              ret_type,
-              new_arg_types,
-              invoke.getOpcode(),
-              methodref instanceof ConstantInterfaceMethodref));
+      // il.append(
+      //     ifact.createInvoke(
+      //         classname,
+      //         method_name,
+      //         ret_type,
+      //         new_arg_types,
+      //         invoke.getOpcode(),
+      //         methodref instanceof ConstantInterfaceMethodref)); // to compile
 
     } else {
       // Not instrumented, don't append dcomp argument
