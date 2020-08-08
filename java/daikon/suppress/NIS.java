@@ -34,7 +34,6 @@ import org.checkerframework.checker.nullness.qual.RequiresNonNull;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import typequals.prototype.qual.Prototype;
-import units.qual.ns;
 
 // Outstanding NIS todo list
 //
@@ -187,7 +186,7 @@ public class NIS {
   static int still_suppressed_cnt = 0;
 
   /** Total time spent in NIS processing. */
-  public static @ns long duration = (@ns long) 0;
+  public static long duration = 0;
 
   /** First execution of dump_stats(). Used to dump a header. */
   static boolean first_time = true;
@@ -330,7 +329,7 @@ public class NIS {
       return;
     }
 
-    @ns long startTime = (@ns long) 0;
+    long startTime = 0;
     // Count the number of falsified invariants that are antecedents
     if (keep_stats) {
       startTime = System.nanoTime();
@@ -440,7 +439,7 @@ public class NIS {
   public static void clear_stats() {
 
     keep_stats = true;
-    duration = (@ns long) 0;
+    duration = 0;
     false_invs = 0;
     false_cnts = 0;
     suppressions_processed = 0;

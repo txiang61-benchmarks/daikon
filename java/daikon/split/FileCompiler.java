@@ -20,7 +20,6 @@ import org.checkerframework.checker.index.qual.Positive;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.regex.qual.Regex;
 import org.checkerframework.common.value.qual.MinLen;
-import units.qual.ms;
 
 /**
  * This class has method {@link #compileFiles(List)} that compiles Java source files. It invokes a
@@ -38,7 +37,7 @@ public final class FileCompiler {
    */
   private String @MinLen(1) [] compiler;
   /** Time limit for compilation jobs. */
-  private @ms long timeLimit;
+  private long timeLimit;
 
   static {
     try {
@@ -68,7 +67,7 @@ public final class FileCompiler {
    *     options
    * @param timeLimit the maximum permitted compilation time, in msec
    */
-  public FileCompiler(String @MinLen(1) [] compiler, @Positive @ms long timeLimit) {
+  public FileCompiler(String @MinLen(1) [] compiler, @Positive long timeLimit) {
     if (compiler.length == 0) {
       throw new Error("no compile command was provided");
     }
@@ -86,7 +85,7 @@ public final class FileCompiler {
    * @param timeLimit the maximum permitted compilation time, in msec
    */
   @SuppressWarnings("value") // no index checker list support
-  public FileCompiler(/*(at)MinLen(1)*/ ArrayList<String> compiler, @Positive @ms long timeLimit) {
+  public FileCompiler(/*(at)MinLen(1)*/ ArrayList<String> compiler, @Positive long timeLimit) {
     this(compiler.toArray(new String[0]), timeLimit);
   }
 
@@ -98,7 +97,7 @@ public final class FileCompiler {
    *     split on spaces.
    * @param timeLimit the maximum permitted compilation time, in msec
    */
-  public FileCompiler(String compiler, @Positive @ms long timeLimit) {
+  public FileCompiler(String compiler, @Positive long timeLimit) {
     this(compiler.trim().split(" +"), timeLimit);
   }
 

@@ -198,7 +198,6 @@ import org.plumelib.util.EntryReader;
 import org.plumelib.util.RegexUtil;
 import org.plumelib.util.UtilPlume;
 import typequals.prototype.qual.Prototype;
-import units.qual.ms;
 
 /**
  * The {@link #main} method is the main entry point for the Daikon invariant detector. The {@link
@@ -216,7 +215,7 @@ public final class Daikon {
    * The amount of time to wait between updates of the progress display, measured in milliseconds. A
    * value of -1 means do not print the progress display at all.
    */
-  public static @ms int dkconfig_progress_delay = (@ms int) 1000;
+  public static int dkconfig_progress_delay = 1000;
 
   /** The current version of Daikon. */
   public static final String release_version = "5.8.3";
@@ -722,11 +721,11 @@ public final class Daikon {
     }
 
     if (Daikon.dkconfig_quiet) {
-      Daikon.dkconfig_progress_delay = (@ms int) -1;
+      Daikon.dkconfig_progress_delay = -1;
     }
     if (System.console() == null) {
       // not connected to a terminal
-      Daikon.dkconfig_progress_delay = (@ms int) -1;
+      Daikon.dkconfig_progress_delay = -1;
     }
 
     // Set up debug traces; note this comes after reading command line options.
@@ -911,7 +910,7 @@ public final class Daikon {
     if ((fileio_progress != null) && (fileio_progress.getState() != Thread.State.NEW)) {
       fileio_progress.shouldStop = true;
       try {
-        fileio_progress.join((@ms long) 2000);
+        fileio_progress.join(2000);
       } catch (InterruptedException e) {
       }
       if (fileio_progress.getState() != Thread.State.TERMINATED) {
@@ -2146,7 +2145,7 @@ public final class Daikon {
 
     @Override
     public void run() {
-      if (dkconfig_progress_delay == (@ms long) -1) {
+      if (dkconfig_progress_delay == -1) {
         return;
       }
       while (true) {
@@ -2164,7 +2163,7 @@ public final class Daikon {
     }
     /** Clear the display; good to do before printing to System.out. */
     public void clear() {
-      if (dkconfig_progress_delay == (@ms long) -1) {
+      if (dkconfig_progress_delay == -1) {
         return;
       }
       // "display("");" is wrong becuase it leaves the timestamp and writes
@@ -2179,7 +2178,7 @@ public final class Daikon {
      * display.
      */
     public void display() {
-      if (dkconfig_progress_delay == (@ms long) -1) {
+      if (dkconfig_progress_delay == -1) {
         return;
       }
 
@@ -2197,7 +2196,7 @@ public final class Daikon {
     }
     /** Displays the given message. */
     public void display(String message) {
-      if (dkconfig_progress_delay == -(@ms long) 1) {
+      if (dkconfig_progress_delay == -1) {
         return;
       }
       String status =

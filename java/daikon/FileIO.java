@@ -61,7 +61,6 @@ import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.plumelib.util.CollectionsPlume;
 import org.plumelib.util.UtilPlume;
-import units.qual.ms;
 
 public final class FileIO {
 
@@ -1018,7 +1017,7 @@ public final class FileIO {
           break;
         }
         try {
-          Thread.sleep((@ms long) 1000);
+          Thread.sleep(1000);
         } catch (java.lang.InterruptedException e) {
         }
       }
@@ -1292,7 +1291,7 @@ public final class FileIO {
         count_lines = false;
       } else if (is_url) {
         count_lines = false;
-      } else if (Daikon.dkconfig_progress_delay == (@ms int) -1) {
+      } else if (Daikon.dkconfig_progress_delay == -1) {
         count_lines = false;
       } else if (new File(raw_filename).length() == 0) {
         // Either it's actually empty, or it's something like a pipe.

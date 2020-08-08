@@ -160,7 +160,7 @@ public class DtracePartitioner implements Partitioner<String, String>, Iterator<
           continue;
         }
         int invoNonce = calcNonce(nextInvo);
-        Integer key = new Integer(invoNonce);
+        Integer key = invoNonce;
         String enterInvo = nonceMap.get(key);
         if (enterInvo != null) {
           nonceMap.put(key, enterInvo + lineSep + nextInvo);

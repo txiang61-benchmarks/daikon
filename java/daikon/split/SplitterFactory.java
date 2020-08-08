@@ -19,8 +19,6 @@ import org.checkerframework.checker.nullness.qual.RequiresNonNull;
 import org.checkerframework.checker.regex.qual.Regex;
 import org.checkerframework.checker.signature.qual.BinaryName;
 import org.plumelib.util.UtilPlume;
-import units.UnitsTools;
-import units.qual.s;
 
 /**
  * This class contains static methods {@link #parse_spinfofile(File)} which creates Splitterss from
@@ -60,7 +58,7 @@ public class SplitterFactory {
    * Positive integer. Specifies the Splitter compilation timeout, in seconds, after which the
    * compilation process is terminated and retried, on the assumption that it has hung.
    */
-  public static @s int dkconfig_compile_timeout = (@s int) 20;
+  public static int dkconfig_compile_timeout = 20;
 
   private static @MonotonicNonNull FileCompiler fileCompiler; // lazily initialized
 
@@ -249,8 +247,7 @@ public class SplitterFactory {
     // timeout is specified in seconds, but the parameter to FileCompiler
     // is specified in milliseconds.
     if (fileCompiler == null) {
-      fileCompiler =
-          new FileCompiler(dkconfig_compiler, (long) UnitsTools.s_to_ms(dkconfig_compile_timeout));
+      fileCompiler = new FileCompiler(dkconfig_compiler, 1000 * (long) dkconfig_compile_timeout);
     }
     return fileCompiler.compileFiles(fileNames);
   }

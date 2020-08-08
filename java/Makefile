@@ -31,7 +31,7 @@ ifdef CHECKERFRAMEWORK
   CHECKERFRAMEWORK_JAR_DIR ?= ${CHECKERFRAMEWORK}/checker/dist
 endif
 CHECKERFRAMEWORK_JAR_DIR ?= ${DAIKONDIR}/java/lib/checker-framework
-CHECKERFRAMEWORK_JAR ?= ${CHECKERFRAMEWORK_JAR_DIR}/checker.jar:${DAIKONDIR}/java/lib/units-inference.jar:${DAIKONDIR}/java/lib/checker-framework-inference.jar
+CHECKERFRAMEWORK_JAR ?= ${CHECKERFRAMEWORK_JAR_DIR}/checker.jar
 CHECKERFRAMEWORK_JAVAC ?= ${CHECKERFRAMEWORK_JAR_DIR}/javac.jar
 
 
@@ -50,14 +50,14 @@ JAVADOC_COMMAND = ${JAVADOC} -cp ${DAIKON_CLASSPATH}
 ## Classpath
 
 ## Daikon compiled files
-# ifeq "$(wildcard ${DAIKONDIR}/java/lib/daikon-plumelib.jar)" "${DAIKONDIR}/java/lib/daikon-plumelib.jar"
+ifeq "$(wildcard ${DAIKONDIR}/java/lib/daikon-plumelib.jar)" "${DAIKONDIR}/java/lib/daikon-plumelib.jar"
   # Add jar files that only exist for the development version, not the
   # distributed version, of Daikon.  The if clause avoids a (harmless but
   # annoying) javac error message that they don't exist.
   DAIKON_CLASSPATH := ${CHECKERFRAMEWORK_JAR}:${DAIKONDIR}/java/lib/*:${DAIKONDIR}/java
-# else
-#   DAIKON_CLASSPATH := ${DAIKONDIR}/java
-# endif
+else
+  DAIKON_CLASSPATH := ${DAIKONDIR}/java
+endif
 
 ## Add tools.jar and rt.jar, if they exist
 ifeq ($(shell uname), Darwin)
@@ -814,7 +814,6 @@ JAVAC_VINDEX_ARGS = -processor org.checkerframework.common.subtyping.SubtypingCh
 JAVAC_REGEX_ARGS = -processor org.checkerframework.checker.regex.RegexChecker -implicit:class -Xlint:-processing -AskipDefs='${ALLSYSTEMS_SKIPDEFS}'
 JAVAC_REGEX_QUAL_ARGS = -processor org.checkerframework.checker.experimental.regex_qual.RegexCheckerAdapter -implicit:class -Xlint:-processing -AskipDefs='${ALLSYSTEMS_SKIPDEFS}'
 JAVAC_FORMATTER_ARGS = -processor org.checkerframework.checker.formatter.FormatterChecker -implicit:class -Xlint:-processing -AskipDefs='${ALLSYSTEMS_SKIPDEFS}'
-JAVAC_UNITS_ARGS = -processor units.UnitsChecker -implicit:class -Xlint:-processing -AskipDefs='${ALLSYSTEMS_SKIPDEFS}'
 # -AsuppressWarnings=lock:method.guarantee.violated,lock:override.sideeffect.invalid is temporary.
 # Once the Purity Checker and -AsuggestPureMethods are fixed, they can be run on plume-lib
 # and Daikon and this can be removed. The method.guarantee.violated warning is issued by
@@ -850,7 +849,7 @@ show_nullness_java_files:
 ## TODO: Reinstate these dependencies later:  check-prototype check-vindex
 # Check is in two parts because Travis won't run jobs longer than 50 minutes.
 check-part1: check-formatter check-index check-interning check-lock
-check-part2: check-nullness check-regex check-signature check-units
+check-part2: check-nullness check-regex check-signature
 check-all: check-part1 check-part2
 typecheck: check-all
 
@@ -904,10 +903,6 @@ check-signature-onefile: ${ALL_GENERATED_FILES} compile
 check-nullness: compile compile-typequals
 	@echo ${JAVAC_COMMAND} ${JAVAC_NULLNESS_ARGS} ${CHECKER_ARGS} ...
 	@${JAVAC_COMMAND} ${JAVAC_NULLNESS_ARGS} ${CHECKER_ARGS} ${NULLNESS_JAVA_FILES}
-
-check-units: compile compile-typequals
-	@echo ${JAVAC_COMMAND} ${JAVAC_UNITS_ARGS} ${CHECKER_ARGS} ...
-	@${JAVAC_COMMAND} ${JAVAC_UNITS_ARGS} ${CHECKER_ARGS} ${NULLNESS_JAVA_FILES}
 
 
 # These targets run the Nullness checker on just one file.

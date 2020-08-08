@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.regex.Pattern;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
-import units.qual.ms;
 
 /**
  * This is the main class for DynComp. It uses the javaagent switch to java (which allows classes to
@@ -110,7 +109,7 @@ public class DynComp {
   public static @MonotonicNonNull File premain = null;
 
   /** starting time (msecs) */
-  public static @ms long start = System.currentTimeMillis();
+  public static long start = System.currentTimeMillis();
 
   /** Log file if debugging is enabled. */
   private static final SimpleLog basic = new SimpleLog(false);
@@ -400,7 +399,7 @@ public class DynComp {
     return ("[" + (System.currentTimeMillis() - start) + " msec]");
   }
 
-  public static @ms long elapsed_msecs() {
+  public static long elapsed_msecs() {
     return (System.currentTimeMillis() - start);
   }
 

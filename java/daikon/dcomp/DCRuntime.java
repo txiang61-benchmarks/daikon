@@ -41,7 +41,6 @@ import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.nullness.qual.PolyNull;
 import org.checkerframework.dataflow.qual.Pure;
-import units.qual.ms;
 
 @SuppressWarnings({"nullness", "interning"}) // tricky code, skip for now
 public final class DCRuntime {
@@ -1509,7 +1508,7 @@ public final class DCRuntime {
 
     // merge_dv.enabled = dv.getName().contains ("mtfFreq");
 
-    long start_millis = (@ms long) 0;
+    long start_millis = 0;
     if (debug_timing.enabled()) start_millis = System.currentTimeMillis();
     if (merge_dv.enabled()) {
       merge_dv.log("merge_comparability: checking var %s = '%s' %n", dv, obj_str(obj));
@@ -1663,7 +1662,7 @@ public final class DCRuntime {
 
     // merge_dv.enabled = dv.getName().contains ("mtfFreq");
 
-    long start_millis = (@ms long) 0;
+    long start_millis = 0;
     if (debug_timing.enabled()) start_millis = System.currentTimeMillis();
     if (merge_dv.enabled()) {
       merge_dv.log("merge_comparability: checking var %s = '%s' %n", dv, obj_str(obj));
