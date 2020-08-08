@@ -250,7 +250,7 @@ public class SplitterFactory {
     // is specified in milliseconds.
     if (fileCompiler == null) {
       fileCompiler =
-          new FileCompiler(dkconfig_compiler, (long) UnitsTools.s_to_ms(dkconfig_compile_timeout));
+          new FileCompiler(dkconfig_compiler, dkconfig_compile_timeout);
     }
     return fileCompiler.compileFiles(fileNames);
   }
